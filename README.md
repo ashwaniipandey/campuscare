@@ -11,7 +11,7 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-brightgreen?style=flat-square&logo=leaflet)](https://leafletjs.com/)
 
 🔗 **Live Demo:** [https://campusscare.vercel.app](https://campusscare.vercel.app)  
-*(Use seeded demo accounts from the table below to explore different roles)*
+*(Sign up as a Student or Health Staff to explore the app. Demo accounts (student1@demo.edu etc.) are available only after running `npm run seed:demo` locally.)*
 
 ---
 
@@ -204,7 +204,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## 👥 Demo Accounts
 
-If you populate the database using `npm run seed:demo`, you can test all four role experiences using the pre-seeded credentials:
+For local development and testing, if you populate the database using `npm run seed:demo`, you can test all four role experiences using the pre-seeded credentials:
 
 | Role | Email | Password |
 | :--- | :--- | :--- |
