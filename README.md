@@ -10,7 +10,7 @@
 [![Recharts](https://img.shields.io/badge/Recharts-3.11-22c55e?style=flat-square)](https://recharts.org/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-brightgreen?style=flat-square&logo=leaflet)](https://leafletjs.com/)
 
-🔗 **Live Demo:** [https://YOUR-VERCEL-URL.vercel.app](https://YOUR-VERCEL-URL.vercel.app)  
+🔗 **Live Demo:** [https://campusscare.vercel.app](https://campusscare.vercel.app)  
 *(Use seeded demo accounts from the table below to explore different roles)*
 
 ---
