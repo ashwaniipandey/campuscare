@@ -1,13 +1,13 @@
 # 🏥 CampusCare — Integrated Campus Health & Emergency Dispatch System
 
-> A comprehensive, real-time healthcare management and emergency response platform designed specifically for university campuses.
+> A comprehensive, near real-time (polling every 3 to 15 seconds) healthcare management and emergency response platform designed specifically for university campuses.
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)](https://reactjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)](https://reactjs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-green?style=flat-square&logo=mongodb)](https://www.mongodb.com/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-4.24-purple?style=flat-square)](https://next-auth.js.org/)
-[![Recharts](https://img.shields.io/badge/Recharts-2.12-22c55e?style=flat-square)](https://recharts.org/)
+[![Recharts](https://img.shields.io/badge/Recharts-3.11-22c55e?style=flat-square)](https://recharts.org/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-brightgreen?style=flat-square&logo=leaflet)](https://leafletjs.com/)
 
 🔗 **Live Demo:** [https://YOUR-VERCEL-URL.vercel.app](https://YOUR-VERCEL-URL.vercel.app)  
@@ -43,10 +43,10 @@ University campus health centres frequently struggle with fragmented medical rec
 
 | Role | Key Capabilities |
 | :--- | :--- |
-| 🎓 **Student** | • Role-based authenticated portal with personal health history.<br>• Search doctors by department/service and book appointments based on real-time availability.<br>• Secure diagnostic report viewer with download and upload capabilities.<br>• Submit post-consultation 1–5 star ratings and reviews (with anonymous option).<br>• One-tap Emergency SOS with auto-captured GPS coordinates and live incident status tracking.<br>• Real-time in-app notification center for appointment status, reports, and referrals. |
-| 🩺 **Health Staff (Doctor)** | • Comprehensive clinical dashboard with today's appointments and queue management.<br>• Set working hours and configure custom availability slots.<br>• Record clinical visit notes, prescribe follow-ups, and mark visits as completed.<br>• Patient record lookup with full compliance access auditing.<br>• Inter-clinician referrals (routine, urgent, emergency) and bulk emergency-leave patient transfer.<br>• Real-time emergency alerts with interactive Leaflet map and response timer. |
+| 🎓 **Student** | • Browse departments and pick a doctor with live availability.<br>• Book and cancel appointments.<br>• View and download medical reports uploaded by staff (students do not upload).<br>• Personal health history timeline and profile management.<br>• Submit post-consultation 1–5 star ratings and reviews (with anonymous option).<br>• One-tap Emergency SOS with auto-captured GPS coordinates and incident status tracking.<br>• Near real-time (polling every 3 to 15 seconds) in-app notifications for appointment status, reports, and referrals. |
+| 🩺 **Health Staff (Doctor)** | • Configure custom availability slots.<br>• Manage appointments: confirm or complete visits with clinical visit notes.<br>• Patient lookup by student registration number.<br>• Upload medical reports.<br>• Inter-clinician referrals and emergency-leave patient transfer.<br>• Doctor performance dashboard and toggleable duty status.<br>• Near real-time (polling every 3 to 15 seconds) emergency alerts with interactive map and response timer. |
 | 🚑 **Ambulance Driver** | • Dedicated driver dashboard with toggleable duty status (`available`, `busy`, `offline`).<br>• Live GPS location streaming.<br>• Atomic dispatch claim: first available driver to accept locks the pickup with concurrency protection.<br>• Progressive multi-stage dispatch workflow (`accepted` ➔ `picked-up` ➔ `completed`).<br>• Integrated navigation assistance and caller/student direct contact links. |
-| 🛡️ **Administrator** | • Interactive analytics dashboard powered by Recharts (appointment trends, department volume, emergency response times, doctor ratings).<br>• User management: create verified health staff and ambulance driver accounts.<br>• Campus-wide emergency incident monitoring and resolution oversight.<br>• HIPAA/FERPA-aligned patient record access audit logs tracking clinical record lookups and report downloads. |
+| 🛡️ **Administrator** | • Analytics dashboard powered by Recharts (appointment trends, department volume, emergency response times, doctor ratings).<br>• User management (admin creates ambulance driver accounts; staff and students sign up themselves).<br>• Oversight of appointments, emergencies, ambulances, and referrals.<br>• Access logs providing an audit trail of who looked up or downloaded which student record. |
 
 ---
 
@@ -54,10 +54,10 @@ University campus health centres frequently struggle with fragmented medical rec
 
 | Layer | Technology | Details |
 | :--- | :--- | :--- |
-| **Frontend** | Next.js 14 (App Router), React 18 | Server & Client components, modern layout architecture |
-| **Styling** | Tailwind CSS, Lucide React, next-themes | Semantic design system with full Light & Dark mode support |
+| **Frontend** | Next.js 16 (App Router), React 19 | Server & Client components, modern layout architecture |
+| **Styling** | Tailwind CSS 4, Lucide React, next-themes | Semantic design system with full Light & Dark mode support |
 | **Backend** | Next.js Route Handlers (Node.js runtime) | RESTful API endpoints, server-side authentication & role validation |
-| **Database** | MongoDB & Mongoose ODM | Relational schema modeling, atomic updates, indexes |
+| **Database** | MongoDB & Mongoose ODM | Document modeling with references, atomic updates and indexes |
 | **Authentication** | NextAuth.js (v4) | Credentials provider, JWT session strategy, bcrypt hashing |
 | **Maps & Location** | Leaflet, React-Leaflet, OpenStreetMap | Interactive emergency mapping, GPS marker tracking, distance estimation |
 | **Data Visualization** | Recharts | Responsive line, bar, area, and pie charts for admin analytics |
@@ -78,13 +78,13 @@ sequenceDiagram
     participant Driver as Ambulance Driver
 
     Student->>System: Triggers SOS (Sends GPS Coordinates & Incident Type)
-    System->>Staff: Dispatches high-priority alert on Clinic Map
+    System->>Staff: Dispatches alert on Clinic Map
     System->>System: Starts dispatch search (Initial 5 km radius, expands +5 km / 30s)
     System->>Driver: Broadcasts dispatch opportunity to nearby available drivers
     Driver->>System: Driver clicks "Accept Dispatch"
     Note over System: Atomic findOneAndUpdate locks assignment to first responder
-    System-->>Student: Updates status: Ambulance Assigned (Live Driver Details & ETA)
-    System-->>Staff: Live Map updates with responding vehicle
+    System-->>Student: Updates status: Ambulance Assigned (Driver Details & ETA)
+    System-->>Staff: Map updates with responding vehicle
     Driver->>System: Marks "Patient Picked Up"
     Driver->>System: Arrives at Clinic & Marks "Completed"
     System-->>Student: SOS Resolved, prompt for follow-up
@@ -113,27 +113,29 @@ erDiagram
 ## 📁 Project Structure
 
 ```
-campushealth/
-├── app/                          # Next.js App Router structure
-│   ├── (auth)/                   # Authentication pages (login, register)
-│   ├── admin/                    # Admin portal (analytics, user management, audit logs)
-│   ├── ambulance/                # Ambulance driver dashboard & active ride console
-│   ├── api/                      # REST API endpoints (appointments, emergencies, reports, etc.)
-│   ├── appointments/             # Appointment management views
-│   ├── doctor/ & staff/          # Clinician workspaces, queues, and referral manager
-│   ├── emergency/                # Student emergency SOS trigger and tracking page
-│   ├── reports/                  # Medical records and diagnostic upload center
-│   ├── layout.js                 # Global layout with ThemeProvider and SessionProvider
-│   └── page.js                   # Public landing page with service overview
-├── components/                   # Reusable UI components (Navbar, Modals, LeafletMap, Charts)
-├── lib/                          # Core business logic and server utilities
-│   ├── auth.js                   # NextAuth credentials configuration and role callbacks
-│   ├── db.js                     # Cached Mongoose connection handler
-│   ├── dispatch.js               # Haversine distance and expanding radius ambulance search
-│   └── notify.js                 # Unified in-app notification dispatcher
-├── models/                       # Mongoose schemas (User, Emergency, Ambulance, Referral, etc.)
-├── scripts/                      # Operational and database seeding scripts
-└── public/                       # Static assets and icons
+campuscare/
+├── app/                          # Next.js App Router
+│   ├── admin/                    # Admin dashboard, analytics, users, and audit logs
+│   ├── ambulance/                # Ambulance driver dashboard and dispatch console
+│   ├── api/                      # REST API route handlers
+│   ├── login/                    # Login page
+│   ├── profile/                  # User profile management
+│   ├── signup/                   # Registration page (students and health staff)
+│   ├── staff/                    # Doctor & clinical staff portal, queue, and referrals
+│   ├── student/                  # Student portal (appointments, reports, SOS)
+│   ├── globals.css               # Global styles and design system variables
+│   ├── layout.js                 # Root layout with providers and navigation
+│   └── page.js                   # Landing page
+├── components/                   # Reusable UI components (Navbar, Modals, Map, Charts)
+├── lib/                          # Core utilities and helpers
+│   ├── auth.js                   # NextAuth credentials configuration and callbacks
+│   ├── dispatch.js               # Haversine distance and expanding radius dispatch logic
+│   ├── mongodb.js                # Cached MongoDB connection handler
+│   └── notify.js                 # In-app notification dispatcher
+├── models/                       # Mongoose schemas (User, Appointment, Emergency, etc.)
+├── public/                       # Static public assets
+├── scripts/                      # Database seed and maintenance scripts
+└── middleware.js                 # Edge authentication and role-based route protection
 ```
 
 ---
@@ -148,8 +150,8 @@ campushealth/
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/ashwaniipandey/campushealth.git
-cd campushealth
+git clone https://github.com/ashwaniipandey/campuscare.git
+cd campuscare
 npm install
 ```
 
@@ -159,7 +161,7 @@ Create a `.env.local` file in the root directory:
 
 ```env
 # Database Connection
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/campuscare?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/campus-health?retryWrites=true&w=majority
 
 # NextAuth Configuration
 NEXTAUTH_URL=http://localhost:3000
@@ -191,7 +193,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 | Command | Description |
 | :--- | :--- |
 | `npm run dev` | Starts the Next.js development server with hot module reloading on port 3000. |
-| `npm run build` | Compiles the production build and validates all TypeScript/JSX dependencies. |
+| `npm run build` | Creates the production build. |
 | `npm run start` | Starts the optimized production server. |
 | `npm run seed:admin` | Initializes the first system administrator account using variables from `.env.local`. |
 | `npm run seed:demo` | Seeds full mock data: students, doctors, ambulances, appointments, and active emergencies. |
@@ -217,9 +219,9 @@ If you populate the database using `npm run seed:demo`, you can test all four ro
 
 - **Password Encryption:** Passwords are salted and hashed using `bcryptjs` before storage.
 - **Strict Role-Based Routing:** Edge middleware and route handlers enforce granular authorization (`student`, `staff`, `ambulance`, `admin`).
-- **Input Sanitization & Projection:** Critical endpoints strip out sensitive fields such as passwords and internal tokens from JSON responses.
+- **Input validation & Projection:** Critical endpoints strip out sensitive fields such as passwords and internal tokens from JSON responses.
 - **Atomic Operations:** Concurrency-safe dispatch assignment prevents double-booking of ambulances during simultaneous claims.
-- **Audit Logging:** Every clinician lookup, report view, and diagnostic record download is recorded in `AccessLog` for regulatory compliance.
+- **Audit Logging:** Maintains an audit trail of who looked up or downloaded which student record.
 - **File Upload Safeguards:** Medical reports are validated for allowed MIME types (PDF, PNG, JPEG) and enforced with strict size limits.
 
 ---
@@ -227,7 +229,7 @@ If you populate the database using `npm run seed:demo`, you can test all four ro
 ## ⚠️ Academic Disclaimer & Emergency Notice
 
 > **IMPORTANT DISCLAIMER**  
-> CampusCare is an educational and portfolio demonstration system created to illustrate full-stack architecture, real-time dispatch systems, and role-based healthcare workflows. It is **not** an FDA-cleared, HIPAA-certified, or accredited medical dispatch appliance.
+> CampusCare is an educational and portfolio demonstration system created to illustrate full-stack architecture, dispatch systems, and role-based healthcare workflows. It is **not** an FDA-cleared or accredited medical dispatch appliance.
 > 
 > 🚨 **In the event of a genuine life-threatening medical emergency, immediately dial your local emergency services (112 in India, 911 in the USA, or your regional emergency helpline) or contact your campus security office directly.**
 
@@ -249,6 +251,6 @@ Developed with care by **Ashwani Pandey**
 
 - **GitHub:** [@ashwaniipandey](https://github.com/ashwaniipandey)
 - **LinkedIn:** [Ashwani Pandey](https://linkedin.com/in/)
-- **Repository:** [https://github.com/ashwaniipandey/campushealth](https://github.com/ashwaniipandey/campushealth)
+- **Repository:** [https://github.com/ashwaniipandey/campuscare](https://github.com/ashwaniipandey/campuscare)
 
 *Built to make campus healthcare accessible, fast, and reliable for everyone.*
