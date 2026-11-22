@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  /* Clean modern medical teal */
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+
+  /* Soft medical sky blue */
+  --secondary: #0284c7;
+  --secondary-foreground: #ffffff;
+
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+
+  --accent: #f0fdfa;
+  --accent-foreground: #0f766e;
+
+  --destructive: #e11d48;
+  --destructive-foreground: #ffffff;
+
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0d9488;
+
+  --radius: 1rem;
+}
+
+.dark {
+  --background: #0b1220;
+  --foreground: #e8edf7;
+
+  --card: #111a2e;
+  --card-foreground: #e8edf7;
+
+  --popover: #111a2e;
+  --popover-foreground: #e8edf7;
+
+  --primary: #2dd4bf;
+  --primary-foreground: #042f2e;
+
+  --secondary: #38bdf8;
+  --secondary-foreground: #082f49;
+
+  --muted: #17223b;
+  --muted-foreground: #94a3b8;
+
+  --accent: #134e4a;
+  --accent-foreground: #5eead4;
+
+  --destructive: #f87171;
+  --destructive-foreground: #450a0a;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #2dd4bf;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle dark gradient on body background */
+.dark body {
+  background-color: #0b1220;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.035) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: #e8edf7;
+}
+
+/* Dark mode utility adaptations for cards and borders */
+.dark .bg-white {
+  background-color: #111a2e !important;
+}
+
+.dark .bg-slate-50 {
+  background-color: #0b1220 !important;
+}
+
+.dark .bg-slate-100 {
+  background-color: #17223b !important;
+}
+
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-200\/80,
+.dark .border-slate-200\/90,
+.dark .border-slate-300 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .text-slate-900 {
+  color: #e8edf7 !important;
+}
+
+.dark .text-slate-800 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-slate-700 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-slate-500 {
+  color: #8191a8 !important;
+}
+
+/* Dark inputs, textareas, selects */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #111a2e !important;
+  color: #e8edf7 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+  cursor: pointer;
+}
+
+/* Status Badges Translucent Tints in Dark Mode */
+.dark .bg-emerald-50,
+.dark .bg-emerald-50\/80,
+.dark .bg-emerald-100 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #6ee7b7 !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.dark .bg-teal-50,
+.dark .bg-teal-50\/80,
+.dark .bg-teal-100 {
+  background-color: rgba(45, 212, 191, 0.15) !important;
+  color: #5eead4 !important;
+  border-color: rgba(45, 212, 191, 0.3) !important;
+}
+
+.dark .bg-amber-50,
+.dark .bg-amber-50\/80,
+.dark .bg-amber-100 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #fcd34d !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.dark .bg-rose-50,
+.dark .bg-rose-50\/80,
+.dark .bg-rose-100,
+.dark .bg-red-50 {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+  color: #fda4af !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+}
+
+.dark .bg-blue-50,
+.dark .bg-blue-50\/80,
+.dark .bg-blue-100,
+.dark .bg-sky-50 {
+  background-color: rgba(56, 189, 248, 0.15) !important;
+  color: #7dd3fc !important;
+  border-color: rgba(56, 189, 248, 0.3) !important;
+}
+
+.dark .bg-purple-50,
+.dark .bg-purple-100,
+.dark .bg-indigo-50 {
+  background-color: rgba(168, 85, 247, 0.15) !important;
+  color: #d8b4fe !important;
+  border-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* Leaflet maps dark mode styling */
+.dark .leaflet-tile {
+  filter: brightness(0.65) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.75);
+}
+
+.dark .leaflet-container {
+  background-color: #0b1220 !important;
+}
+
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
+  background: #111a2e !important;
+  color: #e8edf7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+.dark .leaflet-popup-content {
+  color: #e8edf7 !important;
+}
+
+/* Recharts Tooltips, axes, and grid lines */
+.dark .recharts-default-tooltip {
+  background-color: #111a2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #e8edf7 !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark .recharts-cartesian-grid line {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .recharts-text,
+.dark .recharts-cartesian-axis-tick text {
+  fill: #94a3b8 !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}

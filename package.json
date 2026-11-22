@@ -1,0 +1,41 @@
+{
+  "name": "campus-health",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "dev:webpack": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint",
+    "seed:admin": "node --env-file=.env.local scripts/seed-admin.js",
+    "seed:demo": "node --env-file=.env.local scripts/seed-demo.js",
+    "clear:demo": "node --env-file=.env.local scripts/clear-demo.js",
+    "test:referral": "node --env-file=.env.local scripts/test-referral.js"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
+    "bcryptjs": "^3.0.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.4.7",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^1.16.0",
+    "mongoose": "^9.12.3",
+    "next": "16.4.6",
+    "next-auth": "^4.24.15",
+    "next-themes": "^0.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-leaflet": "^5.0.0",
+    "recharts": "^3.11.0",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@tailwindcss/turbopack": "4.3.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "tailwindcss": "4.3.3"
+  }
+}
