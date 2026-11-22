@@ -250,7 +250,7 @@ If you populate the database using `npm run seed:demo`, you can test all four ro
 Developed with care by **Ashwani Pandey**
 
 - **GitHub:** [@ashwaniipandey](https://github.com/ashwaniipandey)
-- **LinkedIn:** [Ashwani Pandey](https://linkedin.com/in/)
+- **LinkedIn:** [Ashwani Pandey](https://www.linkedin.com/in/ashwanipandey6/)
 - **Repository:** [https://github.com/ashwaniipandey/campuscare](https://github.com/ashwaniipandey/campuscare)
 
 *Built to make campus healthcare accessible, fast, and reliable for everyone.*
