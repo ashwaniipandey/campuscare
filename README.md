@@ -11,7 +11,7 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-brightgreen?style=flat-square&logo=leaflet)](https://leafletjs.com/)
 
 🔗 **Live Demo:** [https://campusscare.vercel.app](https://campusscare.vercel.app)  
-*(Sign up as a Student or Health Staff to explore the app. Demo accounts (student1@demo.edu etc.) are available only after running `npm run seed:demo` locally.)*
+*(On the live site, please sign up as a Student or Health Staff to explore. Demo accounts (`student1@demo.edu`, `staff1@demo.edu`, `ambulance1@demo.edu` with password `Demo@12345`) work only after running `npm run seed:demo` locally. Ambulance driver accounts are created by the admin.)*
 
 ---
 
@@ -43,10 +43,10 @@ University campus health centres frequently struggle with fragmented medical rec
 
 | Role | Key Capabilities |
 | :--- | :--- |
-| 🎓 **Student** | • Browse departments and pick a doctor with live availability.<br>• Book and cancel appointments.<br>• View and download medical reports uploaded by staff (students do not upload).<br>• Personal health history timeline and profile management.<br>• Submit post-consultation 1–5 star ratings and reviews (with anonymous option).<br>• One-tap Emergency SOS with auto-captured GPS coordinates and incident status tracking.<br>• Near real-time (polling every 3 to 15 seconds) in-app notifications for appointment status, reports, and referrals. |
-| 🩺 **Health Staff (Doctor)** | • Configure custom availability slots.<br>• Manage appointments: confirm or complete visits with clinical visit notes.<br>• Patient lookup by student registration number.<br>• Upload medical reports.<br>• Inter-clinician referrals and emergency-leave patient transfer.<br>• Doctor performance dashboard and toggleable duty status.<br>• Near real-time (polling every 3 to 15 seconds) emergency alerts with interactive map and response timer. |
-| 🚑 **Ambulance Driver** | • Dedicated driver dashboard with toggleable duty status (`available`, `busy`, `offline`).<br>• Live GPS location streaming.<br>• Atomic dispatch claim: first available driver to accept locks the pickup with concurrency protection.<br>• Progressive multi-stage dispatch workflow (`accepted` ➔ `picked-up` ➔ `completed`).<br>• Integrated navigation assistance and caller/student direct contact links. |
-| 🛡️ **Administrator** | • Analytics dashboard powered by Recharts (appointment trends, department volume, emergency response times, doctor ratings).<br>• User management (admin creates ambulance driver accounts; staff and students sign up themselves).<br>• Oversight of appointments, emergencies, ambulances, and referrals.<br>• Access logs providing an audit trail of who looked up or downloaded which student record. |
+| 🎓 **Student** | • Browse departments and pick a doctor with live availability.<br>• Book and cancel appointments.<br>• View and download medical reports uploaded by staff (students do not upload).<br>• Personal health history timeline and profile management.<br>• Submit post-consultation 1–5 star ratings and reviews (with anonymous option).<br>• One-tap Emergency SOS with auto-captured GPS coordinates and incident status tracking. SOS is available only to students; logged-out visitors see a "log in as a student" message with Dial 112 still usable. The emergency modal includes a "Campus Security" call button that shows only if `NEXT_PUBLIC_CAMPUS_SECURITY_PHONE` is set.<br>• Near real-time (polling every 3 to 15 seconds) in-app notifications for appointment status, reports, and referrals. |
+| 🩺 **Health Staff (Doctor)** | • Configure custom availability slots.<br>• Manage appointments: confirm or complete visits with clinical visit notes.<br>• Patient lookup by student registration number.<br>• Upload medical reports.<br>• Inter-clinician referrals and emergency-leave patient transfer.<br>• Doctor performance dashboard and toggleable duty status.<br>• Direct access to "Active Emergencies" (/staff/emergencies) with interactive map and response timer (role link shown instead of SOS button). |
+| 🚑 **Ambulance Driver** | • Dedicated driver dashboard with toggleable duty status (`available`, `busy`, `offline`) and "Ambulance Console" (/ambulance/dashboard) role link shown instead of SOS button.<br>• Live GPS location streaming.<br>• Atomic dispatch claim: first available driver to accept locks the pickup with concurrency protection.<br>• Progressive multi-stage dispatch workflow (`accepted` ➔ `picked-up` ➔ `completed`).<br>• Integrated navigation assistance and caller/student direct contact links. |
+| 🛡️ **Administrator** | • Analytics dashboard powered by Recharts (appointment trends, department volume, emergency response times, doctor ratings).<br>• User management (admin creates ambulance driver accounts; staff and students sign up themselves).<br>• Oversight of appointments, "Emergencies" (/admin/emergencies role link shown instead of SOS button), ambulances, and referrals.<br>• Access logs providing an audit trail of who looked up or downloaded which student record. |
 
 ---
 
@@ -55,7 +55,7 @@ University campus health centres frequently struggle with fragmented medical rec
 | Layer | Technology | Details |
 | :--- | :--- | :--- |
 | **Frontend** | Next.js 16 (App Router), React 19 | Server & Client components, modern layout architecture |
-| **Styling** | Tailwind CSS 4, Lucide React, next-themes | Semantic design system with full Light & Dark mode support |
+| **Styling** | Tailwind CSS 4, Lucide React, next-themes | Semantic design system with full Light & Dark mode support; custom brand heart logo favicon (app/icon.svg) |
 | **Backend** | Next.js Route Handlers (Node.js runtime) | RESTful API endpoints, server-side authentication & role validation |
 | **Database** | MongoDB & Mongoose ODM | Document modeling with references, atomic updates and indexes |
 | **Authentication** | NextAuth.js (v4) | Credentials provider, JWT session strategy, bcrypt hashing |
@@ -118,6 +118,7 @@ campuscare/
 │   ├── admin/                    # Admin dashboard, analytics, users, and audit logs
 │   ├── ambulance/                # Ambulance driver dashboard and dispatch console
 │   ├── api/                      # REST API route handlers
+│   ├── icon.svg                  # Brand favicon icon (heart pulse logo)
 │   ├── login/                    # Login page
 │   ├── profile/                  # User profile management
 │   ├── signup/                   # Registration page (students and health staff)
@@ -171,6 +172,9 @@ NEXTAUTH_SECRET=your_generated_nextauth_secret
 ADMIN_NAME="System Administrator"
 ADMIN_EMAIL=admin@campuscare.edu
 ADMIN_PASSWORD=your_strong_admin_password
+
+# Campus Security Dial (OPTIONAL - displays Campus Security button in SOS modal if set)
+NEXT_PUBLIC_CAMPUS_SECURITY_PHONE=
 ```
 
 > **Tip:** You can generate a cryptographically secure `NEXTAUTH_SECRET` by running:
@@ -204,7 +208,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## 👥 Demo Accounts
 
-For local development and testing, if you populate the database using `npm run seed:demo`, you can test all four role experiences using the pre-seeded credentials:
+On the live deployment, users should sign up as a Student or Health Staff. Demo accounts (`student1@demo.edu`, `staff1@demo.edu`, `ambulance1@demo.edu`, password `Demo@12345`) work only after running `npm run seed:demo` locally. Ambulance driver accounts are created by the admin.
 
 | Role | Email | Password |
 | :--- | :--- | :--- |
