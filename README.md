@@ -29,13 +29,13 @@ University campus health centres frequently struggle with fragmented medical rec
 
 | Landing Page | Student Booking & Calendar |
 | :---: | :---: |
-| ![Landing Page](docs/screenshots/landing.png) | ![Student Booking](docs/screenshots/student-booking.png) |
+| ![Landing Page](docs/screenshots/landing.png.png) | ![Student Booking](docs/screenshots/student-booking.png.png) |
 | **Medical Reports & History** | **Doctor / Staff Dashboard** |
-| ![Student Reports](docs/screenshots/student-reports.png) | ![Staff Dashboard](docs/screenshots/staff-dashboard.png) |
+| ![Student Reports](docs/screenshots/student-reports.png.png) | ![Staff Dashboard](docs/screenshots/staff-dashboard.png.png) |
 | **Emergency SOS & Live Map** | **Ambulance Dispatch Dashboard** |
-| ![Emergency Map](docs/screenshots/emergency-map.png) | ![Ambulance Dashboard](docs/screenshots/ambulance-dashboard.png) |
+| ![Emergency Map](docs/screenshots/emergency-map.png.png) | ![Ambulance Dashboard](docs/screenshots/ambulance-dashboard.png.png) |
 | **Admin Analytics & Insights** | **Theme System (Dark Mode)** |
-| ![Admin Analytics](docs/screenshots/admin-analytics.png) | ![Dark Mode](docs/screenshots/dark-mode.png) |
+| ![Admin Analytics](docs/screenshots/admin-analytics.png.png) | ![Dark Mode](docs/screenshots/dark-mode.png.png) |
 
 ---
 
