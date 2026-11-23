@@ -7,7 +7,7 @@ export const metadata = {
   description:
     "Modern Campus Health Services Scheduling and Emergency Response Coordination Platform. Book appointments with university doctors and trigger rapid emergency medical dispatch.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.svg",
   },
 };
 
