@@ -56,7 +56,7 @@ University campus health centres frequently struggle with fragmented medical rec
 | :--- | :--- | :--- |
 | **Frontend** | Next.js 16 (App Router), React 19 | Server & Client components, modern layout architecture |
 | **Styling** | Tailwind CSS 4, Lucide React, next-themes | Semantic design system with full Light & Dark mode support; custom brand heart logo favicon (app/icon.svg) |
-| **Backend** | Next.js Route Handlers (Node.js runtime) | RESTful API endpoints, server-side authentication & role validation |
+| **Backend** | Next.js API Routes running on the Node.js runtime | RESTful API endpoints, server-side authentication & role validation |
 | **Database** | MongoDB & Mongoose ODM | Document modeling with references, atomic updates and indexes |
 | **Authentication** | NextAuth.js (v4) | Credentials provider, JWT session strategy, bcrypt hashing |
 | **Maps & Location** | Leaflet, React-Leaflet, OpenStreetMap | Interactive emergency mapping, GPS marker tracking, distance estimation |
