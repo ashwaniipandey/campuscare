@@ -1,5 +1,7 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -11,11 +13,15 @@ import {
   CheckCircle2,
   PhoneCall,
   Sparkles,
+  LayoutDashboard,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export default function Hero({ onOpenEmergency, onOpenAppointment }) {
+  const { data: session } = useSession();
+  const role = session?.user?.role;
   return (
     <section id="hero" className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32 bg-background transition-colors">
       {/* Soft background medical glow accents */}
@@ -92,26 +98,96 @@ export default function Hero({ onOpenEmergency, onOpenAppointment }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
-              {/* Primary: Book Appointment */}
-              <Button
-                size="lg"
-                onClick={onOpenAppointment}
-                className="gap-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-lg shadow-teal-600/20 text-base h-13 px-8 transition-all hover:-translate-y-0.5"
-              >
-                <Calendar className="w-5 h-5" />
-                <span>Book Appointment</span>
-              </Button>
+              {role === "staff" ? (
+                <>
+                  <Link href="/staff/dashboard">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto gap-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-lg shadow-teal-600/20 text-base h-13 px-8 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <LayoutDashboard className="w-5 h-5" />
+                      <span>Staff Dashboard</span>
+                    </Button>
+                  </Link>
+                  <Link href="/staff/emergencies">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto gap-2.5 font-bold text-base h-13 px-8 border-rose-500/80 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <AlertTriangle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                      <span>Active Emergencies</span>
+                    </Button>
+                  </Link>
+                </>
+              ) : role === "admin" ? (
+                <>
+                  <Link href="/admin/dashboard">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto gap-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-lg shadow-teal-600/20 text-base h-13 px-8 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <LayoutDashboard className="w-5 h-5" />
+                      <span>Admin Dashboard</span>
+                    </Button>
+                  </Link>
+                  <Link href="/admin/emergencies">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto gap-2.5 font-bold text-base h-13 px-8 border-rose-500/80 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <AlertTriangle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                      <span>Emergencies</span>
+                    </Button>
+                  </Link>
+                </>
+              ) : role === "ambulance" ? (
+                <>
+                  <Link href="/ambulance/dashboard">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto gap-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-lg shadow-teal-600/20 text-base h-13 px-8 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <LayoutDashboard className="w-5 h-5" />
+                      <span>Ambulance Dashboard</span>
+                    </Button>
+                  </Link>
+                  <Link href="/ambulance/dashboard">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto gap-2.5 font-bold text-base h-13 px-8 border-rose-500/80 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <AlertTriangle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                      <span>Ambulance Console</span>
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  {/* Primary: Book Appointment */}
+                  <Button
+                    size="lg"
+                    onClick={onOpenAppointment}
+                    className="gap-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-lg shadow-teal-600/20 text-base h-13 px-8 transition-all hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    <Calendar className="w-5 h-5" />
+                    <span>Book Appointment</span>
+                  </Button>
 
-              {/* Red Emergency SOS Button */}
-              <Button
-                variant="emergency"
-                size="lg"
-                onClick={onOpenEmergency}
-                className="gap-2.5 font-bold text-base h-13 px-8 text-white transition-all hover:-translate-y-0.5"
-              >
-                <AlertOctagon className="w-5 h-5 animate-spin-slow" />
-                <span>EMERGENCY SOS</span>
-              </Button>
+                  {/* Red Emergency SOS Button */}
+                  <Button
+                    variant="emergency"
+                    size="lg"
+                    onClick={onOpenEmergency}
+                    className="gap-2.5 font-bold text-base h-13 px-8 text-white transition-all hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    <AlertOctagon className="w-5 h-5 animate-spin-slow" />
+                    <span>EMERGENCY SOS</span>
+                  </Button>
+                </>
+              )}
             </motion.div>
 
             {/* Mini Trust Highlights */}

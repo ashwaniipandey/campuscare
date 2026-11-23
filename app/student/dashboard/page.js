@@ -230,14 +230,14 @@ export default function StudentDashboard() {
           {/* Emergency SOS */}
           <motion.div
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.4 }}
-            className="bg-white rounded-3xl p-6 border border-rose-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-card rounded-3xl p-6 border border-rose-200 dark:border-rose-900/40 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow"
           >
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center mb-4">
+              <div className="w-11 h-11 rounded-2xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
                 <AlertTriangle className="w-6 h-6 animate-pulse" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-1">Emergency SOS</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="text-base font-bold text-slate-900 dark:text-foreground mb-1">Emergency SOS</h3>
+              <p className="text-xs text-slate-600 dark:text-muted-foreground leading-relaxed">
                 Trigger one-touch emergency medical dispatch with GPS coordinates and live responder tracking.
               </p>
             </div>
@@ -245,7 +245,7 @@ export default function StudentDashboard() {
               <Button
                 variant="emergency"
                 onClick={() => setIsEmergencyOpen(true)}
-                className="w-full font-bold"
+                className="w-full font-bold cursor-pointer"
               >
                 Trigger Emergency SOS →
               </Button>

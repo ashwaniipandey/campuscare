@@ -1,5 +1,7 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Siren,
@@ -89,6 +91,9 @@ const itemVariants = {
 };
 
 export default function Features({ onOpenEmergency, onOpenAppointment }) {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const role = session?.user?.role;
   return (
     <section id="features" className="py-20 lg:py-28 bg-slate-50/60 dark:bg-[#0c1424] transition-colors relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -165,15 +170,39 @@ export default function Features({ onOpenEmergency, onOpenAppointment }) {
                     <button
                       type="button"
                       onClick={() => {
-                        if (feature.id === "emergency-sos" && onOpenEmergency) {
-                          onOpenEmergency();
-                        } else if (onOpenAppointment) {
-                          onOpenAppointment();
+                        if (feature.id === "emergency-sos") {
+                          if (role === "staff") {
+                            router.push("/staff/emergencies");
+                          } else if (role === "admin") {
+                            router.push("/admin/emergencies");
+                          } else if (role === "ambulance") {
+                            router.push("/ambulance/dashboard");
+                          } else if (onOpenEmergency) {
+                            onOpenEmergency();
+                          }
+                        } else {
+                          if (role === "staff") {
+                            router.push("/staff/dashboard");
+                          } else if (role === "admin") {
+                            router.push("/admin/dashboard");
+                          } else if (role === "ambulance") {
+                            router.push("/ambulance/dashboard");
+                          } else if (onOpenAppointment) {
+                            onOpenAppointment();
+                          }
                         }
                       }}
                       className="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-300 flex items-center gap-1.5 cursor-pointer group-hover:underline"
                     >
-                      <span>{feature.actionLabel}</span>
+                      <span>
+                        {feature.id === "emergency-sos" && role === "staff"
+                          ? "View Active Emergencies"
+                          : feature.id === "emergency-sos" && role === "admin"
+                          ? "View Emergencies"
+                          : feature.id === "emergency-sos" && role === "ambulance"
+                          ? "Ambulance Console"
+                          : feature.actionLabel}
+                      </span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>

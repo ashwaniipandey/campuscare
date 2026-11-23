@@ -1,5 +1,7 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Smartphone,
@@ -47,6 +49,9 @@ const steps = [
 ];
 
 export default function HowItWorks({ onOpenAppointment, onOpenEmergency }) {
+  const { data: session } = useSession();
+  const role = session?.user?.role;
+  const isStudentOrVisitor = !session || role === "student";
   return (
     <section id="how-it-works" className="py-20 lg:py-28 bg-white dark:bg-background relative overflow-hidden transition-colors">
       {/* Decorative background radial pattern */}
@@ -147,21 +152,54 @@ export default function HowItWorks({ onOpenAppointment, onOpenEmergency }) {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-            <Button
-              size="lg"
-              onClick={onOpenAppointment}
-              className="bg-white text-teal-900 hover:bg-teal-50 font-bold px-7 h-12 shadow-md w-full sm:w-auto cursor-pointer"
-            >
-              Book an Appointment
-            </Button>
-            <Button
-              variant="emergency"
-              size="lg"
-              onClick={onOpenEmergency}
-              className="font-bold px-6 h-12 w-full sm:w-auto cursor-pointer"
-            >
-              Emergency SOS
-            </Button>
+            {role === "staff" ? (
+              <Link href="/staff/dashboard" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white text-teal-900 hover:bg-teal-50 font-bold px-7 h-12 shadow-md cursor-pointer"
+                >
+                  Staff Dashboard
+                </Button>
+              </Link>
+            ) : role === "admin" ? (
+              <Link href="/admin/dashboard" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white text-teal-900 hover:bg-teal-50 font-bold px-7 h-12 shadow-md cursor-pointer"
+                >
+                  Admin Dashboard
+                </Button>
+              </Link>
+            ) : role === "ambulance" ? (
+              <Link href="/ambulance/dashboard" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white text-teal-900 hover:bg-teal-50 font-bold px-7 h-12 shadow-md cursor-pointer"
+                >
+                  Ambulance Console
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Button
+                  size="lg"
+                  onClick={onOpenAppointment}
+                  className="bg-white text-teal-900 hover:bg-teal-50 font-bold px-7 h-12 shadow-md w-full sm:w-auto cursor-pointer"
+                >
+                  Book an Appointment
+                </Button>
+                {isStudentOrVisitor && (
+                  <Button
+                    variant="emergency"
+                    size="lg"
+                    onClick={onOpenEmergency}
+                    className="font-bold px-6 h-12 w-full sm:w-auto cursor-pointer"
+                  >
+                    Emergency SOS
+                  </Button>
+                )}
+              </>
+            )}
           </div>
         </motion.div>
 
